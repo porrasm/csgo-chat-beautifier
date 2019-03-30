@@ -19,11 +19,11 @@ namespace CSGO_Chat_Beautifier {
             charToLines = new CharToLines();
         }
 
-        public string[] Beautify(string input) {
+        public string[] Beautify(string word) {
 
             stringLines = EmptyStringLines();
 
-            foreach (Char c in input) {
+            foreach (Char c in word) {
                 HandleChar(c);
             }
 
@@ -39,7 +39,7 @@ namespace CSGO_Chat_Beautifier {
         private void AppendStringLines(string[] newStringLines) {
 
             if (stringLines[0].Length + newStringLines[0].Length > maxLength) {
-                return;
+                //return;
             }
             for (int i = 0; i < 5; i++) {
                 stringLines[i] += newStringLines[i];
@@ -48,7 +48,7 @@ namespace CSGO_Chat_Beautifier {
 
         private string[] GetStringsFromLines(Lines lines) {
 
-            if (lines.Character == ' ') {
+            if (lines.Character == Settings.whitespaceChar) {
                 return Whitespace();
             }
 

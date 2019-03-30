@@ -289,7 +289,7 @@ namespace CSGO_Chat_Beautifier {
             }
 
             Lines lines = new Lines();
-            lines.SetCharacter(' ');
+            lines.SetCharacter(Settings.whitespaceChar);
 
             return lines;
         }

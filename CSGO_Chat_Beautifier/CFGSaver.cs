@@ -8,36 +8,68 @@ using System.Threading.Tasks;
 namespace CSGO_Chat_Beautifier {
     class CFGSaver {
 
-        private string cfgFolder = "C:/Program Files (x86)/Steam/steamapps/common/Counter-Strike Global Offensive/csgo/cfg";
-        private string bind = "F1";
-        private string aliasName = "beautifiedChat";
-        private string updateName = "beautifiedChatUpdate";
-        private string updateBind = "F2";
+        private StringBuilder cfg;
+        private int cfgIndex;
 
-        public void SaveToCFG(string[] stringLines) {
+        public void SaveToCFG(List<string[]> wordsToSave) {
 
-            string path = cfgFolder + "/" + aliasName + ".cfg";
-            string toSave = StringToSave(stringLines);
+            string path = Settings.cfgFolder + "/" + Settings.aliasName + ".cfg";
+            string toSave = StringToSave(wordsToSave);
 
             File.WriteAllText(path, toSave);
         }
 
-        private string StringToSave(string[] stringLines) {
+        private string StringToSave(List<string[]> wordsToSave) {
 
-            StringBuilder cfg = new StringBuilder();
+            InitializeCFG();
 
-            cfg.Append($"bind \"{updateBind}\" \"{updateName}\"\n");
-            cfg.Append($"alias \"{updateName}\" \"exec {aliasName}\"\n");
+            for (int i = 0; i < wordsToSave.Count; i++) {
 
-            cfg.Append($"bind \"{bind}\" \"{aliasName}\"\n");
-            cfg.Append($"alias \"{aliasName}\" \"{aliasName}0\"\n");
+                bool last = i == wordsToSave.Count - 1;
 
-            for (int i = 0; i < 4; i++) {
-                cfg.Append($"alias \"{aliasName}{i}\" \"say {stringLines[i]}; alias {aliasName} {aliasName}{i + 1}\"\n");
+                AppendNext(wordsToSave[i], last);
+                if (!last) {
+                    AppendEmptyLine(wordsToSave[i]);
+                }
             }
-            cfg.Append($"alias \"{aliasName}{4}\" \"say {stringLines[4]}; alias {aliasName} {aliasName}{0}\"\n");
 
             return cfg.ToString();
+        }
+
+        private void InitializeCFG() {
+            cfg = new StringBuilder();
+            cfgIndex = 0;
+
+            cfg.Append($"bind \"{Settings.updateBind}\" \"{Settings.updateName}\"\n");
+            cfg.Append($"alias \"{Settings.updateName}\" \"exec {Settings.aliasName}\"\n");
+
+            cfg.Append($"bind \"{Settings.bind}\" \"{Settings.aliasName}\"\n");
+            cfg.Append($"alias \"{Settings.aliasName}\" \"{Settings.aliasName}{cfgIndex}\"\n");
+        }
+        private void AppendNext(string[] stringLines, bool last) {
+
+            for (int i = 0; i < 4; i++) {
+                cfg.Append($"alias \"{Settings.aliasName}{cfgIndex}\" \"say {stringLines[i]}; alias {Settings.aliasName} {Settings.aliasName}{cfgIndex + 1}\"\n");
+                cfgIndex++;
+            }
+
+            if (last) {
+                cfg.Append($"alias \"{Settings.aliasName}{cfgIndex}\" \"say {stringLines[4]}; alias {Settings.aliasName} {Settings.aliasName}{0}\"\n");
+            } else {
+                cfg.Append($"alias \"{Settings.aliasName}{cfgIndex}\" \"say {stringLines[4]}; alias {Settings.aliasName} {Settings.aliasName}{cfgIndex + 1}\"\n");
+                cfgIndex++;
+            }
+        }
+        private void AppendEmptyLine(string[] stringLines) {
+            int length = stringLines[0].Length;
+            string emptyLine = "";
+
+            for (int i = 0; i < length; i++) {
+                emptyLine += Settings.empty;
+            }
+
+            cfg.Append($"alias \"{Settings.aliasName}{cfgIndex}\" \"say {emptyLine}; alias {Settings.aliasName} {Settings.aliasName}{cfgIndex + 1}\"\n");
+            cfgIndex++;
         }
     }
 }
