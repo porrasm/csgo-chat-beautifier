@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2018
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSGO_Chat_Beautifier", "CSGO_Chat_Beautifier\CSGO_Chat_Beautifier.csproj", "{4606FD97-7F11-4087-BF9A-4780D0780EDF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4606FD97-7F11-4087-BF9A-4780D0780EDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4606FD97-7F11-4087-BF9A-4780D0780EDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4606FD97-7F11-4087-BF9A-4780D0780EDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4606FD97-7F11-4087-BF9A-4780D0780EDF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5137F08A-EFF9-4E71-AC4A-6FBCFABD7A0A}
+	EndGlobalSection
+EndGlobal
